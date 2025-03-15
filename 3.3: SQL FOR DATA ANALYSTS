@@ -1,0 +1,29 @@
+3.3: SQL FOR DATA ANALYSTS
+
+Write a SELECT command to find out what film genres exist in the category table. 
+SELECT  category_id, name FROM category
+
+Write an INSERT statement to add the following genres to the 
+category table: Thriller, Crime, Mystery, Romance, and War: 
+INSERT INTO category (category_id, name)  
+VALUES ('17', 'Thiller') ('18', 'Crime'), ('19', 'Mystery'), ('20', 'Romance'), ('21', 'War')
+
+
+The genre for the movie African Egg needs to be updated to thriller. Work through the steps below to 
+make this change:
+Write the SELECT statement to find the film_id for the movie African Egg. 
+SELECT film_id, title 
+FROM film 
+where title = 'African Egg'
+
+
+Once you have the film_ID and category_ID, write an UPDATE command to change the category in the 
+film_category table (not the category table). Copy-paste this command into your answers document. 
+UPDATE film_category  
+SET category_id = 17  
+WHERE film_id = 5
+
+Since there aren’t many movies in the mystery category, you and your manager decide to remove it from 
+the category table. Write a DELETE command to do so and copy-paste it into your answers document. 
+DELETE FROM  category  
+WHERE  name  =  'Mystery'
