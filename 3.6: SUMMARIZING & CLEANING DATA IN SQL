@@ -1,0 +1,105 @@
+3.6: SUMMARIZING & CLEANING DATA IN SQL
+
+Find out if the film table and the customer table contain any dirty data, specifically non-uniform or 
+duplicate data, or missing values. 
+
+DUPLICATE DATA 
+
+FILM TABLE 
+QUERY: 
+SELECT title, release_year, language_id, rental_duration, 
+COUNT(*) 
+FROM film 
+GROUP BY title, release_year, language_id, rental_duration 
+HAVING COUNT(*) >1
+
+CUSTOMER TABLE 
+QUERY: 
+SELECT DISTINCT customer_id, store_id 
+FROM customer 
+GROUP BY customer_id, store_id 
+HAVING COUNT(*) >1
+
+NON-UNIFORM DATA 
+
+FILM TABLE 
+QUERY: 
+SELECT rating, 
+COUNT(*) 
+FROM film 
+GROUP BY rating
+As the rating table has a user-defined data type, it makes sense to check here for non-uniform 
+data.
+
+CUSTOMER TABLE 
+QUERY: 
+SELECT first_name, last_name,  
+COUNT(*) FROM customer  
+GROUP BY first_name, last_name
+
+Summarize your data 
+Use SQL to calculate descriptive statistics for both the film table and the customer table. For 
+numerical columns, this means finding the minimum, maximum, and average values. For non
+numerical columns, calculate the mode value. 
+
+DESCRIPTIVE STATISTICS 
+FILM TABLE 
+NUMERICAL COLUMNS 
+QUERY: 
+SELECT  
+COUNT(*) AS total_movies, 
+ROUND(AVG(rental_duration),2) AS average_rental_duration, 
+MIN(rental_duration) AS min_rental_duration, 
+MAX(rental_duration) AS max_rental_duration, 
+ROUND(AVG(rental_rate),2) AS average_rental_rate, 
+MIN(rental_rate) AS min_rental_rate, 
+MAX(rental_rate) AS max_rental_rate, 
+ROUND(AVG(length),2) AS average_length, 
+MIN(length) AS min_length, 
+MAX(length) AS max_length, 
+ROUND(AVG(replacement_cost),2) AS average_replacement_cost, 
+MIN(replacement_cost) AS min_replacement_cost, 
+MAX(replacement_cost) AS max_replacement_cost 
+FROM film
+
+NON-NUMERICAL COLUMNS 
+QUERY: 
+SELECT 
+MODE() WITHIN GROUP (ORDER BY title) AS modal_title, 
+MODE() WITHIN GROUP (ORDER BY description) AS modal_description, 
+MODE() WITHIN GROUP (ORDER BY rating) AS modal_rating, 
+MODE() WITHIN GROUP (ORDER BY special_features) AS modal_special_features 
+FROM film; 
+
+CUSTOMER TABLE 
+NUMERICAL COLUMNS 
+QUERY: 
+SELECT 
+COUNT(*) AS total_customers, 
+ROUND(AVG(store_id),2) AS average_store_id, 
+MIN(store_id) AS min_store_id, 
+MAX(store_id) AS max_store_id, 
+ROUND(AVG(active),2) AS average_active, 
+MIN(active) AS min_active, 
+MAX(active) AS max_active, 
+ROUND(AVG(customer_id),2) AS average_customer_id, 
+MIN(customer_id) AS min_customer_id, 
+MAX(customer_id) AS max_customer_id, 
+ROUND(AVG(address_id),2) AS average_address_id, 
+MIN(address_id) AS min_address_id, 
+MAX(address_id) AS max_address_id, 
+MIN(create_date) AS min_create_date, 
+MAX(create_date) AS max_create_date 
+FROM customer
+
+NON-NUMERICAL COLUMNS 
+QUERY: 
+SELECT 
+MODE() WITHIN GROUP (ORDER BY first_name) AS modal_first_name, 
+MODE() WITHIN GROUP (ORDER BY last_name) AS modal_last_name, 
+MODE() WITHIN GROUP (ORDER BY email) AS modal_email 
+FROM customer
+
+
+
+
